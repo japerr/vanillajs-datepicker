@@ -30,6 +30,7 @@ if (files.length < 2 || !reFilename.test(files[1])) {
 }
 
 const destDir = path.resolve(__dirname, '../js/i18n/locales');
+console.log(destDir)
 if (!fs.existsSync(destDir)) {
   fs.mkdirSync(destDir, {recursive: true});
 }

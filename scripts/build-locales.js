@@ -16,11 +16,22 @@ if (fs.existsSync(distDir)) {
 } else {
   fs.mkdirSync(distDir, {recursive: true});
 }
+var i= true;
 // copy locales to dist
 fs.readdirSync(srcDir).forEach((file) => {
   const src = fs.readFileSync(`${srcDir}/${file}`, 'utf8');
+  if(i) {
+    console.log(src)
+    console.log(src.match(/export\s+default\s+(\{\s+)([\w'-]+):([\s]+\})\n\};/m))
+  }
+
   const output = src
     .replace(reConvert, '(function () $1Datepicker.locales.$2 =$3;\n}());')
-    .replace(rePropNameFix, '[$1]');
+    //.replace(rePropNameFix, '[$1]');
+
+    if(i) {
+        console.log(output)
+        i = false
+    }
   fs.writeFileSync(`${distDir}/${file}`, output);
 });
